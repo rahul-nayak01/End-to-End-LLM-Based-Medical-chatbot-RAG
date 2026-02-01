@@ -91,51 +91,32 @@ User → Flask API → LLM Agent
 → (Conversation Memory + Pinecone Retriever Tool)
 → Grounded Medical Response
 
+User (Medical Question)
+│
+├──► Flask API
+│     └── Inference Endpoint
+│
+├──► LLM Agent (LangChain Agent)
+│     ├── ReAct Reasoning Loop
+│     ├── LLM-driven Decision Making
+│     │     ├── Retrieve medical knowledge?
+│     │     ├── Refine the query?
+│     │     └── Answer directly?
+│     │
+│     ├── Conversation Memory
+│     │     ├── ConversationBufferMemory
+│     │     └── Chat History
+│     │
+│     └── Retriever Tool
+│           ├── Pinecone Vector Database
+│           ├── Medical Embeddings
+│           └── Semantic Similarity Search
+│
+├──► Retrieved Medical Context
+│
+├──► LLM Generation
+│     └── Grounded Medical Answer
+│
+└──► Final Response
 
-
-┌──────────────────────┐
-│        User          │
-│ (Medical Question)   │
-└──────────┬───────────┘
-           │
-           ▼
-┌─────────────────────────────┐
-│        Flask API             │
-│  (Inference Endpoint)        │
-└──────────┬──────────────────┘
-           │
-           ▼
-┌──────────────────────────────────────────┐
-│        LLM Agent (LangChain Agent)         │
-│------------------------------------------│
-│  • ReAct Reasoning Loop                   │
-│  • LLM-driven decision making             │
-│  • Decides whether to:                    │
-│      - Retrieve medical knowledge         │
-│      - Refine the query                   │
-│      - Answer directly                    │
-└───────┬───────────────┬──────────────────┘
-        │               │
-        │               │
-        ▼               ▼
-┌─────────────────┐   ┌────────────────────────┐
-│ Conversation     │   │   Retriever Tool        │
-│ Memory           │   │ (Pinecone Vector DB)    │
-│-----------------│   │------------------------│
-│ • Buffer Memory  │   │ • Medical embeddings   │
-│ • Chat history   │   │ • Semantic similarity  │
-└────────┬────────┘   └──────────┬─────────────┘
-         │                         │
-         └──────────────┬──────────┘
-                        ▼
-              ┌──────────────────────────┐
-              │ Retrieved Medical Context │
-              └──────────┬───────────────┘
-                         ▼
-              ┌──────────────────────────┐
-              │      LLM Generation       │
-              │ (Grounded Medical Answer) │
-              └──────────┬───────────────┘
-                         ▼
-                   Final Response
 
