@@ -91,6 +91,7 @@ User → Flask API → LLM Agent
 → (Conversation Memory + Pinecone Retriever Tool)
 → Grounded Medical Response
 
+```text
 User (Medical Question)
 │
 ├──► Flask API
@@ -118,5 +119,7 @@ User (Medical Question)
 │     └── Grounded Medical Answer
 │
 └──► Final Response
+```
+
 
 
