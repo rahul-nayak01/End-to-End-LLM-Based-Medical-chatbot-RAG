@@ -71,11 +71,11 @@ if __name__ == '__main__':
 
 
 from flask import Flask, render_template, jsonify, request
-from src.helper import retrieval_qa_chain
+from src.helper import load_agent
 
 app = Flask(__name__)
 
-qa_chain = retrieval_qa_chain()
+agent = load_agent()
 
 
 @app.route("/")
@@ -83,15 +83,11 @@ def index():
     return render_template("chat.html")
 
 
-@app.route("/get", methods=["GET", "POST"])
+@app.route("/get", methods=["POST"])
 def chat():
-    msg = request.form["msg"]
-
-    response = qa_chain(
-        {"question": msg}
-    )
-
-    return str(response["answer"])
+    user_input = request.form["msg"]
+    response = agent.run(user_input)
+    return response
 
 
 if __name__ == "__main__":

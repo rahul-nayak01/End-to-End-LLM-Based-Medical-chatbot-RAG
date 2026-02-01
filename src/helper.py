@@ -45,7 +45,9 @@ def text_split(extracted_data):
 #Download the Embeddings from HuggingFace 
 def download_hugging_face_embeddings():
     embeddings=HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')  #this model return 384 dimensions
-    return embeddings"""
+    return embeddings
+
+
 
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.vectorstores import Pinecone
@@ -92,4 +94,34 @@ def retrieval_qa_chain():
         combine_docs_chain_kwargs={"prompt": PROMPT}
     )
 
-    return qa_chain
+    return qa_chain"""
+
+
+import pinecone
+import os
+
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Pinecone
+
+from src.agent import create_agent
+
+
+def load_agent():
+    pinecone.init(
+        api_key=os.environ.get("PINECONE_API_KEY"),
+        environment=os.environ.get("PINECONE_ENV")
+    )
+
+    embeddings = OpenAIEmbeddings()
+    index_name = os.environ.get("PINECONE_INDEX_NAME")
+
+    docsearch = Pinecone.from_existing_index(
+        index_name=index_name,
+        embedding=embeddings
+    )
+
+    retriever = docsearch.as_retriever(search_kwargs={"k": 3})
+
+    agent = create_agent(retriever)
+
+    return agent

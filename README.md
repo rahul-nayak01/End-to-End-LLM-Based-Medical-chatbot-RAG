@@ -72,3 +72,21 @@ ConversationBufferMemory.
 User → Flask API → Conversational Retrieval Chain
 → (Conversation Buffer Memory + Pinecone Retriever + LLM)
 → Context-aware medical response
+
+-----------
+## 🤖 Agentic RAG Architecture
+
+This project has been upgraded from a conversational RAG system to an
+Agentic RAG architecture using LangChain agents.
+
+### Key Enhancements
+- ReAct-style reasoning loop
+- LLM-driven decision making
+- Retriever exposed as a tool
+- Conversation memory preserved
+- Conditional medical knowledge retrieval
+
+### Architecture
+User → Flask API → LLM Agent
+→ (Conversation Memory + Pinecone Retriever Tool)
+→ Grounded Medical Response
