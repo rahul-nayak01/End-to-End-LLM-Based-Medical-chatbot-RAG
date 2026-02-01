@@ -90,3 +90,36 @@ Agentic RAG architecture using LangChain agents.
 User → Flask API → LLM Agent
 → (Conversation Memory + Pinecone Retriever Tool)
 → Grounded Medical Response
+
+```text
+User (Medical Question)
+│
+├──► Flask API
+│     └── Inference Endpoint
+│
+├──► LLM Agent (LangChain Agent)
+│     ├── ReAct Reasoning Loop
+│     ├── LLM-driven Decision Making
+│     │     ├── Retrieve medical knowledge?
+│     │     ├── Refine the query?
+│     │     └── Answer directly?
+│     │
+│     ├── Conversation Memory
+│     │     ├── ConversationBufferMemory
+│     │     └── Chat History
+│     │
+│     └── Retriever Tool
+│           ├── Pinecone Vector Database
+│           ├── Medical Embeddings
+│           └── Semantic Similarity Search
+│
+├──► Retrieved Medical Context
+│
+├──► LLM Generation
+│     └── Grounded Medical Answer
+│
+└──► Final Response
+```
+
+
+
