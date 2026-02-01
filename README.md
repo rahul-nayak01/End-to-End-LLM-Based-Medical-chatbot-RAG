@@ -56,3 +56,19 @@ User Query
 
 ---
 
+## 🔁 Conversational RAG with Memory
+
+This project has been extended from a basic knowledge-based RAG system
+to a conversational RAG architecture using LangChain's
+ConversationBufferMemory.
+
+### Key Features
+- Maintains full chat history across turns
+- Supports follow-up medical questions
+- Uses ConversationalRetrievalChain
+- Non-agentic, deterministic control flow
+
+### Architecture
+User → Flask API → Conversational Retrieval Chain
+→ (Conversation Buffer Memory + Pinecone Retriever + LLM)
+→ Context-aware medical response
