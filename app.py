@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+"""from flask import Flask, render_template, jsonify, request
 from src.helper import download_hugging_face_embeddings
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import ChatOpenAI
@@ -67,4 +67,32 @@ def chat():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port= 8080, debug= True)
+    app.run(host="0.0.0.0", port= 8080, debug= True)"""
+
+
+from flask import Flask, render_template, jsonify, request
+from src.helper import retrieval_qa_chain
+
+app = Flask(__name__)
+
+qa_chain = retrieval_qa_chain()
+
+
+@app.route("/")
+def index():
+    return render_template("chat.html")
+
+
+@app.route("/get", methods=["GET", "POST"])
+def chat():
+    msg = request.form["msg"]
+
+    response = qa_chain(
+        {"question": msg}
+    )
+
+    return str(response["answer"])
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080, debug=True)
